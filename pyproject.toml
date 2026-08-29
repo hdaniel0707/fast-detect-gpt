@@ -1,0 +1,39 @@
+[project]
+name = "fast-detect-gpt"
+version = "0.1.0"
+description = "Fast-DetectGPT (ICLR 2024), forked to score episteme-ai parquet corpora"
+readme = "README.md"
+requires-python = ">=3.12,<3.14"
+
+# NOT upstream's requirements.txt, which is left untouched as the record of what
+# the paper ran (transformers==4.28.1, datasets==2.12.0, torch 1.10-era).
+#
+# That pin is stale rather than load-bearing. The whole method is
+# `get_sampling_discrepancy_analytic` -- twenty lines of pure torch over two
+# AutoModelForCausalLM logit tensors -- so nothing in it touches an API that has
+# moved. What 4.28.1 *does* do is refuse to load anything newer than early 2023,
+# which rules out Llama-3, i.e. exactly the pair the authors now recommend
+# (README, 31/01/2026). So the fork gets a modern pin instead, matching
+# external/Binoculars, and the two forks stay on the same transformers major.
+#
+# Deliberately absent:
+#   scipy       -- upstream uses it for one Normal pdf in local_infer.py.
+#                  detector_pairs.prob_from_crit does that arithmetic in the
+#                  stdlib, in log space, so this venv does not carry scipy.
+#   datasets,
+#   sklearn,
+#   matplotlib  -- only reached through scripts/fast_detect_gpt.py's module-level
+#                  imports of data_builder and metrics, which is why
+#                  score_parquets.py vendors the criterion instead of importing
+#                  it. Add them back if you ever want to run the paper's own
+#                  experiment scripts (main.sh and friends) out of this venv.
+dependencies = [
+    "torch>=2.11.0",
+    "transformers[torch]>=5.12.1",
+    "numpy>=2.5.0",
+    "pandas>=3.0.3",
+    "pyarrow>=24.0.0",
+    "sentencepiece>=0.2.1",
+    "tqdm>=4.67.3",
+    "dotenv>=0.9.9",
+]

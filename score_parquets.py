@@ -74,7 +74,7 @@ of the method.
 --------------------------------------------------------------------------------
 HOW TO RUN
 --------------------------------------------------------------------------------
-Always from the parent repo root (episteme-ai), never from inside the submodule.
+Always from the parent repository's root, never from inside the submodule.
 ``--project`` points uv at THIS submodule's venv, which is separate from the
 parent's on purpose (incompatible transformers pins):
 
@@ -91,8 +91,8 @@ minutes per corpus rather than hours:
         data/parquet/ghostbuster_gpt56luna.parquet \
         --pair gptneo-2.7b --limit 50 -o /tmp/smoke.parquet --yes
 
-Normally driven from ``epai/ai_detection/score/run_fastdetect_pairs.py``, which
-loops the pairs sequentially per file and checks the postcondition afterwards.
+Normally driven by the parent repository's pair runner, which loops the
+pairs sequentially per file and checks the postcondition afterwards.
 
 Fast-DetectGPT: Bao et al., ICLR 2024. Fork of github.com/baoguangsheng/fast-detect-gpt (MIT).
 """

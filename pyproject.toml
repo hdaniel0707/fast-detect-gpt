@@ -1,7 +1,7 @@
 [project]
 name = "fast-detect-gpt"
 version = "0.1.0"
-description = "Fast-DetectGPT (ICLR 2024), forked to score episteme-ai parquet corpora"
+description = "Fast-DetectGPT (ICLR 2024), forked to score parquet corpora"
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 
